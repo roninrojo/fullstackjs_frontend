@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-export const AuthLayout = () => {
+const AuthLayout = () => {
     return (
         <>
             <main className="containee mx-auto md:grid md:grid-cols-2 mt-10 p-5 gap-10">
@@ -9,3 +9,5 @@ export const AuthLayout = () => {
         </>
     )
 }
+
+export default AuthLayout

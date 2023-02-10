@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 import { Link } from "react-router-dom";
 import Alerta from '../components/Alerta';
@@ -34,11 +33,13 @@ const Register = () => {
 
         // Crear usuario en la API
         try {
-            await clienteAxios.post("/api/veterinarios", { nombre, email, password });
+            await clienteAxios.post("/veterinarios", { nombre, email, password });
             setAlerta({
-                msg: "Usuario creado correctamente",
+                msg: "Usuario creado correctamente, revisa tu email 📨",
                 error: false
             })
+            e.target.reset()
+
         } catch (error) {
             setAlerta({
                 msg: error.response.data.msg,

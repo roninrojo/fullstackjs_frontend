@@ -1,8 +1,40 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Alerta from '../components/Alerta';
+import clienteAxios from '../config/axios';
 import useAuth from "../hooks/useAuth";
+
 const Login = () => {
 
-	
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [alerta, setAlerta] = useState({});
+	const navigate = useNavigate();
+	const { setAuth } = useAuth()
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+
+		if ([email, password].includes('')) {
+			setAlerta({ msg: "Todos los campos son obligatorios", error: true })
+			return
+		}
+
+		try {
+			const { data } = await clienteAxios.post("/veterinarios/login", { email, password });
+			localStorage.setItem('apv_token', data.token);
+			setAuth(data)
+			navigate('/admin');
+
+		} catch (error) {
+			setAlerta({
+				msg: error.response.data.msg,
+				error: true
+			})
+		}
+	}
+
+	const alertaMsg = alerta.msg;
 
 	return ( 
 		<>
@@ -10,7 +42,16 @@ const Login = () => {
 				<h1 className="text-indigo-600 font-black text-xl mb-5 md:text-6xl">Inicia Sesión y Administra tus <span className="text-black">pacientes</span> 🐶🐱🐭🦊</h1>
 			</div>
 			<div className="shadow-lg rounded border p-5 bg-white">
-				<form action="" className="flex flex-col gap-5">
+				{alertaMsg
+					&&
+					<Alerta
+						alerta = {alerta}
+					/>
+				}
+				<form
+					className="flex flex-col gap-5"
+					onSubmit={handleSubmit}
+				>
 					<div>
 						<label
 							htmlFor="email"
@@ -24,6 +65,8 @@ const Login = () => {
 							name="email"
 							id="email"
 							className="border border-gray-300 rounded w-full p-3"
+							value={email}
+							onChange={ e => setEmail(e.target.value)}
 						/>
 					</div>
 					<div>
@@ -39,6 +82,8 @@ const Login = () => {
 							name="password"
 							id="password"
 							className="border border-gray-300 rounded w-full p-3"
+							value={password}
+							onChange={e => setPassword(e.target.value)}
 						/>
 					</div>
 
