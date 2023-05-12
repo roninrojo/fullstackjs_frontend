@@ -73,21 +73,21 @@ export const PacientesProvider = ({children}) => {
     }
 
     const deletePaciente = async id => {
-        const confirm = confirm("¿Quieres eliminar este paciente?")
+        const confirmar = confirm("¿Quieres eliminar este paciente?")
 
-        const token = localStorage.getItem('apv_token');
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            }
-        }
-
-        if (confirm) {
+        if (confirmar) {
             try {
+                const token = localStorage.getItem('apv_token');
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                }
                 const { data } = await clienteAxios.delete(`/pacientes/${id}`, config);
                 const listadoPpacientesActaulizado = pacientes.filter(item => item._id !== id)
                 setPacientes(listadoPpacientesActaulizado)
+                console.log(data)
 
             } catch (error) {
                 console.log(data.response.data.msg)
