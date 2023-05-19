@@ -14,16 +14,19 @@ const Formulario = () => {
 
 	const { guardarPacientes, paciente } = usePacientes(); // Devuelve un objeto (props)
 
-	const dateFormat = (date) => {
-		return new Intl.DateTimeFormat('es-ES').format(date)
+	const formatDate = date => {
+		const newDate = new Date(date);
+		const formatDate = new Intl.DateTimeFormat('es-ES').format(newDate);
+		// dd/MM/yyyy -> yyyy-MM-dd 
+		return formatDate.split("/").map(number => (number.length < 2) ? `0${number}` : number).reverse().join('-')
 	}
-	
+
 	useEffect(() => {
 		if (paciente?._id) {
 			setNombre(paciente.nombre)
 			setPropietario(paciente.propietario)
 			setEmail(paciente.email)
-			setFecha(paciente.fecha)
+			setFecha(formatDate(paciente.fecha))
 			setSintomas(paciente.sintomas)
 			setId(paciente._id)
 		}

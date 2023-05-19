@@ -4,7 +4,7 @@ const Paciente = ({ paciente }) => {
     const { editPaciente, deletePaciente } = usePacientes();    
     const { email, nombre, propietario, sintomas, fecha } = paciente;
 
-    const dateFormat = (date) => {
+    const formatDate = (date) => {
         const newDate = new Date(date);
         return new Intl.DateTimeFormat('es-ES', { dateStyle: 'long' }).format(newDate)
     }
@@ -15,7 +15,7 @@ const Paciente = ({ paciente }) => {
             <p className="mb-2"><span className="font-bold">SINTOMAS</span>: {sintomas}</p>
             <p className="mb-2"><span className="font-bold">PROPIETARIO</span>: {propietario}</p>
             <p className="mb-2"><span className="font-bold">EMAIL</span>: {email}</p>
-            <p><span className="font-bold">FECHA</span>: {dateFormat(fecha)}</p>
+            <p><span className="font-bold">FECHA</span>: {formatDate(fecha)}</p>
 
             <div className="flex justify-between mt-5 mb-0">
                 <button
