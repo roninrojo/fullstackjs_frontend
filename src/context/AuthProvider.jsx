@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({})
 
     useEffect(() => {
-        const atenticarUsuario = async () => {
+        const autenticarUsuario = async () => {
             const token = localStorage.getItem('apv_token');
 
             if (!token) {
@@ -28,6 +28,7 @@ const AuthProvider = ({ children }) => {
             }
 
             try {
+                // Usamos un alias
                 const { data: {veterinario} } = await clienteAxios('/veterinarios/perfil', config);
                 // console.log(veterinario)
                 setAuth(veterinario)
@@ -37,8 +38,34 @@ const AuthProvider = ({ children }) => {
             }
             setLoading(false)
         }
-        atenticarUsuario();
+        autenticarUsuario();
     }, [])
+
+    const editUser = async datos => {
+        // console.log(datos._id)
+        const token = localStorage.getItem('apv_token');
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const data = await clienteAxios.put(`/veterinarios/perfil/${datos._id}`, datos, config);
+            // console.log(data)
+            return {
+                msg: "Cambios guardados ✅",
+                error: false
+            }
+        } catch (error) {
+            return {
+                msg: error.response.data.msg,
+                error: true,
+                classError: "border-red-500"
+            }
+        }
+    }
 
     const cerrarSesion = () => {
         localStorage.removeItem('apv_token')
@@ -52,6 +79,7 @@ const AuthProvider = ({ children }) => {
                 auth,
                 setAuth,
                 loading,
+                editUser,
                 cerrarSesion
             }}
         >

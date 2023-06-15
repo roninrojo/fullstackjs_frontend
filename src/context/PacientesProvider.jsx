@@ -3,7 +3,7 @@ import clienteAxios from '../config/axios';
 
 const PacientesContext = createContext()
 
-// El provider otiene los datos
+// El provider obtiene los datos
 export const PacientesProvider = ({children}) => {
     
     const [pacientes, setPacientes] = useState([]); // -> definimos que nos devuelva un array
@@ -52,7 +52,7 @@ export const PacientesProvider = ({children}) => {
                 const listadoPpacientesActaulizado = pacientes.map(item => item._id === data._id ? data : item)
                 setPacientes(listadoPpacientesActaulizado)
             } catch (error) {
-                
+                console.log(data.response.data.msg)
             }
         } else {
             try {
