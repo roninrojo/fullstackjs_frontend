@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import clienteAxios from '../config/axios';
+import useAuth from '../hooks/useAuth';
 
 const PacientesContext = createContext()
 
@@ -11,6 +12,8 @@ export const PacientesProvider = ({children}) => {
     // Necesitaremos un custom hook para extraer los datos -> usePAcientes.jsx
     
     const [paciente, setPaciente] = useState({}); // -> definimos que nos devuelva un objeto
+    const [isLoading, setIsLoading] = useState(true)
+    const { auth } = useAuth();
 
     useEffect(() => {
         const obtenerPacientes = async () => {
@@ -26,13 +29,16 @@ export const PacientesProvider = ({children}) => {
                 }
                 const { data } = await clienteAxios.get('/pacientes', config);
                 setPacientes(data)
+                setIsLoading(false)
 
             } catch (error) {
                 console.log(error)
             }
         }
         obtenerPacientes();
-    },[pacientes])
+    }, [pacientes, auth])
+    // <- si cambia pacientes o cambia sesión en el mismo navegador nos traemos los pacientes que toquen. 
+    // Sino el provider se queda con los datos anteriores hasta que recarguemos la pagina.
 
     const guardarPacientes = async paciente => {
 
@@ -106,7 +112,8 @@ export const PacientesProvider = ({children}) => {
                 paciente,
                 guardarPacientes,
                 editPaciente,
-                deletePaciente
+                deletePaciente,
+                isLoading
             }}
         >
             {children}

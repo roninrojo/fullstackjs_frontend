@@ -14,6 +14,8 @@ const UpdateUser = () => {
 	  setPerfil(auth)
 	}, [auth])
 
+	console.log(auth);
+
 	const handleSubmit = async e => {
 		e.preventDefault()
 		const { nombre, email } = perfil;
@@ -35,9 +37,6 @@ const UpdateUser = () => {
 
 	
 	const { msg } = alerta;
-
-	console.log(classError)
-
 
 	return (
     	<>

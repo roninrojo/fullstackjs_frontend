@@ -67,6 +67,32 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const editPassword = async datos => {
+        // const [id] = datos;
+        const token = localStorage.getItem('apv_token');
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const data = await clienteAxios.put('/veterinarios/password', datos, config);
+            console.log(data)
+            return {
+                msg: "Cambios guardados ✅",
+                error: false
+            }
+        } catch (error) {
+            return {
+                msg: error.response.data.msg,
+                error: true,
+                classError: "border-red-500"
+            }
+        }
+    }
+
     const cerrarSesion = () => {
         localStorage.removeItem('apv_token')
         setAuth({})
@@ -80,6 +106,7 @@ const AuthProvider = ({ children }) => {
                 setAuth,
                 loading,
                 editUser,
+                editPassword,
                 cerrarSesion
             }}
         >
