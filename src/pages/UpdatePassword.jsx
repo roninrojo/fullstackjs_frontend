@@ -47,6 +47,7 @@ const UpdatePassword = () => {
             <AdminNav></AdminNav>
             <h2 className="text-3xl font-black text-center mt-5">Editar Password *️⃣ *️⃣ *️⃣</h2>
 
+            <p>Test</p>
             <div className="flex justify-center">
                 <div className="w-full md:w-1/2 bg-white py-10 px-5 mb-10 mt-5 lg:mb-5 shadow-md rounded-md">
                     <form
