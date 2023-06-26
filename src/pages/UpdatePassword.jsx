@@ -47,53 +47,7 @@ const UpdatePassword = () => {
             <AdminNav></AdminNav>
             <h2 className="text-3xl font-black text-center mt-5">Editar Password *️⃣ *️⃣ *️⃣</h2>
 
-            <div className="flex justify-center">
-                <div className="w-full md:w-1/2 bg-white py-10 px-5 mb-10 mt-5 lg:mb-5 shadow-md rounded-md">
-                    <form
-                        onSubmit={handleSubmit}
-                    >
-                        <label htmlFor="password" className="my-2 inline-block cursor-pointer">Password</label>
-                        <input
-                            id="password"
-                            type="password"
-                            name="password"
-                            placeholder="Escribe tu password actual"
-                            className="border-2 w-full p-2 mb-5 placeholder-gray-400 rounded-md"
-                            onChange={e => setPassword(e.target.value)}
-                        />
-
-                        <label htmlFor="new_password" className="my-2 inline-block cursor-pointer">Password Nuevo</label>
-                        <input
-                            id="new_password"
-                            type="password"
-                            name="new_password"
-                            placeholder="Escribe tu nuevo password"
-                            className={"border-2 w-full p-2 mb-5 placeholder-gray-400 rounded-md " + classError + classErrorRepaet}
-                            onChange={e => setNewPassword(e.target.value)} 
-                        />
-
-                        <label htmlFor="new_password_repeat" className="my-2 inline-block cursor-pointer">Password Nuevo</label>
-                        <input
-                            id="new_password_repeat"
-                            type="password"
-                            name="new_password_repeat"
-                            placeholder="Escribe tu nuevo password"
-                            className={"border-2 w-full p-2 mb-5 placeholder-gray-400 rounded-md " +  classErrorRepaet}
-                            onChange={e => setNewPasswordRepeat(e.target.value)}
-                        />
-
-                        {msg && <Alerta alerta={alerta} />}
-
-                        <input
-                            type="submit"
-                            className="bg-indigo-600 w-full p-3 mt-5 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
-                            value="Guardar Cambios"
-
-                        />
-                    </form>
-
-                </div>
-            </div>
+            <p>que pasa?</p>
         </>
   )
 }
